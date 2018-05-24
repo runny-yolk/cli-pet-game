@@ -5,13 +5,13 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-module.exports = function(qs, callback){
+module.exports = function(qs, cb){
     var qnum = 0;
 
     var ask = function(){
         if(!qs[qnum]) {
             rl.close();
-            return callback();
+            return (cb && (typeof cb === 'function') ? cb() : undefined);
         }
 
         rl.question(qs[qnum].q+' ', input => {

@@ -1,23 +1,19 @@
 const app = require('./app.js');
-const readline = require('readline');
+var query = require('./query.js');
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+var qs = [
+    {
+        q: 'What would you like to name your pet?',
+        f: input => app('pet new '+input)
+    },
+    {
+        q: '>',
+        f: input => {
+            console.log( app(input) );
+            console.log();
+            return 'stay';
+        }
+    },
+];
 
-function getinput(){
-    rl.question('> ', input => {
-        
-        console.log( app(input) );
-        console.log();
-    
-        getinput();
-    });
-}
-
-rl.question('What would you like to name your pet? ', input => {
-    app('pet new '+input);
-
-    getinput();
-});
+query(qs);
